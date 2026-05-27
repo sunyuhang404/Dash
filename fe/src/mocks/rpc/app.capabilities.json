@@ -1,0 +1,26 @@
+{
+  "protocol_version": "1.0",
+  "platform": "windows",
+  "app_version": "0.1.0",
+  "features": [
+    "repository_list",
+    "clone",
+    "status",
+    "log",
+    "diff",
+    "partial_stage",
+    "branch",
+    "tag",
+    "merge",
+    "conflict_resolver",
+    "stash",
+    "commit",
+    "undo_commit",
+    "revert",
+    "cherry_pick",
+    "fetch",
+    "pull",
+    "push",
+    "watch"
+  ]
+}

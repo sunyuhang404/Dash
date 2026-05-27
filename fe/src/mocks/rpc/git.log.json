@@ -1,0 +1,21 @@
+{
+  "commits": [
+    {
+      "sha": "a1b2c3d4e5f67890",
+      "parents": ["e5f6a7b8c9d01234"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779835200000,
+      "summary": "feat: define typed rpc contract",
+      "refs": ["refs/heads/main"]
+    },
+    {
+      "sha": "e5f6a7b8c9d01234",
+      "parents": [],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779748800000,
+      "summary": "docs: describe dash architecture",
+      "refs": ["refs/remotes/origin/main", "refs/tags/v0.1.0"]
+    }
+  ],
+  "next_cursor": null
+}

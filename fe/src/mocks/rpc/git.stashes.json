@@ -1,0 +1,10 @@
+{
+  "stashes": [
+    {
+      "stash_id": "refs/stash@{0}",
+      "message": "修复登录表单之前的临时改动",
+      "created_at": 1779835200000,
+      "file_count": 4
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "branch": "main",
+  "ahead": 1,
+  "behind": 3,
+  "is_clean": false,
+  "files": [
+    {
+      "path": "src/main.ts",
+      "index_status": "unmodified",
+      "worktree_status": "modified",
+      "old_path": null
+    },
+    {
+      "path": "src/components/repository-nav.tsx",
+      "index_status": "new",
+      "worktree_status": "unmodified",
+      "old_path": null
+    },
+    {
+      "path": "src/api/session.ts",
+      "index_status": "conflicted",
+      "worktree_status": "conflicted",
+      "old_path": null
+    }
+  ]
+}

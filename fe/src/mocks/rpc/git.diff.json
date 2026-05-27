@@ -1,0 +1,25 @@
+{
+  "file_path": "src/main.ts",
+  "old_path": null,
+  "binary": false,
+  "truncated": false,
+  "diff_token": "mock-diff-baseline-token",
+  "selection_action": "stage",
+  "stats": { "additions": 1, "deletions": 1 },
+  "hunks": [
+    {
+      "hunk_id": "hunk-1",
+      "old_start": 10,
+      "old_lines": 3,
+      "new_start": 10,
+      "new_lines": 3,
+      "header": "@@ -10,3 +10,3 @@",
+      "lines": [
+        { "origin": "context", "content": "const init = () => {" },
+        { "origin": "deletion", "content": "  console.log('old');" },
+        { "origin": "addition", "content": "  console.log('dash init');" },
+        { "origin": "context", "content": "};" }
+      ]
+    }
+  ]
+}

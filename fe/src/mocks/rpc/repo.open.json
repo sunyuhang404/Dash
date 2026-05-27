@@ -1,0 +1,11 @@
+{
+  "repo_id": "repo-01HQ-DASH",
+  "repository_key": "saved-repo-01",
+  "root_path": "D:/workspace/Dash",
+  "display_name": "Dash",
+  "head": {
+    "branch": "main",
+    "sha": "a1b2c3d4e5f67890",
+    "detached": false
+  }
+}

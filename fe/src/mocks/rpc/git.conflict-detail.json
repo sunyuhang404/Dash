@@ -1,0 +1,20 @@
+{
+  "file_path": "src/api/session.ts",
+  "incoming": {
+    "label": "Incoming / Theirs",
+    "ref": "origin/main",
+    "content": "export const timeout = 8000;\n"
+  },
+  "current": {
+    "label": "Current / Ours",
+    "ref": "feature/login",
+    "content": "export const timeout = 5000;\n"
+  },
+  "result": {
+    "content": "export const timeout = 5000;\n"
+  },
+  "conflict_blocks": [
+    { "block_id": "conflict-1", "resolved": false }
+  ],
+  "conflict_token": "mock-conflict-baseline-token"
+}

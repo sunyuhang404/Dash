@@ -1,0 +1,12 @@
+{
+  "locals": [
+    { "name": "main", "sha": "a1b2c3d4e5f67890", "is_head": true },
+    { "name": "feature/rpc-types", "sha": "e5f6a7b8c9d01234", "is_head": false }
+  ],
+  "remotes": [
+    { "name": "origin/main", "sha": "e5f6a7b8c9d01234" }
+  ],
+  "tags": [
+    { "name": "v0.1.0", "sha": "82ac21d4" }
+  ]
+}

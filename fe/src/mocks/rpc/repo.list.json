@@ -1,0 +1,31 @@
+{
+  "repositories": [
+    {
+      "repository_key": "saved-repo-01",
+      "root_path": "D:/workspace/Dash",
+      "display_name": "Dash",
+      "group": "工作",
+      "initial": "D",
+      "auto_fetch_on_open": false,
+      "remote_summary": {
+        "behind": 3,
+        "ahead": 1,
+        "checked_at": 1779835200000,
+        "state": "known"
+      }
+    },
+    {
+      "repository_key": "saved-repo-02",
+      "root_path": "D:/workspace/learning-notes",
+      "display_name": "Learning Notes",
+      "group": "个人",
+      "initial": "L",
+      "auto_fetch_on_open": false,
+      "remote_summary": {
+        "behind": 0,
+        "ahead": 0,
+        "state": "unknown"
+      }
+    }
+  ]
+}
