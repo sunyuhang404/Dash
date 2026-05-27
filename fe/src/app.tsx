@@ -1,27 +1,75 @@
-import { defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
+
+import { AddRepositoryModal } from './components/modals/add-repository-modal';
+import { CommitDetailPanel } from './components/workspace/commit-detail-panel';
+import { DiffPanel } from './components/workspace/diff-panel';
+import { HistoryPanel } from './components/workspace/history-panel';
+import { RepoToolbar } from './components/workspace/repo-toolbar';
+import { RepositoryExplorer } from './components/workspace/repository-explorer';
+import { RepositoryNav } from './components/workspace/repository-nav';
+import { RepositoryTabs, type RepositoryTabItem } from './components/workspace/repository-tabs';
+import diffMock from './mocks/rpc/git.diff.json';
+import logMock from './mocks/rpc/git.log.json';
+import refsMock from './mocks/rpc/git.refs.json';
+import stashesMock from './mocks/rpc/git.stashes.json';
+import statusMock from './mocks/rpc/git.status.json';
+import repoListMock from './mocks/rpc/repo.list.json';
+import repoOpenMock from './mocks/rpc/repo.open.json';
+import type { GitDiffResult, GitLogResult, GitRefsResult, GitStashesResult, GitStatusResult } from './types/git.types';
+import type { RepoListResult, RepoOpenResult } from './types/repository.types';
+
+const repositoryList = repoListMock as RepoListResult;
+const activeRepository = repoOpenMock as RepoOpenResult;
+const workingTreeStatus = statusMock as GitStatusResult;
+const currentDiff = diffMock as GitDiffResult;
+const commitHistory = logMock as GitLogResult;
+const repositoryRefs = refsMock as GitRefsResult;
+const stashes = stashesMock as GitStashesResult;
+const defaultCommit = commitHistory.commits[0];
+const openTabs: RepositoryTabItem[] = [
+  {
+    repositoryKey: activeRepository.repository_key,
+    displayName: activeRepository.display_name,
+    branch: activeRepository.head.branch,
+    active: true,
+    dirty: !workingTreeStatus.is_clean,
+  },
+];
 
 export const App = defineComponent({
   name: 'App',
   setup: () => {
+    const selectedCommitSha = ref(defaultCommit.sha);
+    const selectedCommit = computed(
+      () => commitHistory.commits.find((commit) => commit.sha === selectedCommitSha.value) ?? defaultCommit,
+    );
+
+    const handleSelectCommit = (sha: string) => {
+      selectedCommitSha.value = sha;
+    };
+
     return () => (
-      <main class="dash-app min-h-screen bg-slate-950 p-8 text-slate-100 sm:p-12">
-        <section
-          class="dash-welcome mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center justify-center rounded-3xl border border-slate-800 bg-slate-900/50 p-8 shadow-2xl shadow-black/30"
-          aria-label="Dash 学习起始页"
-        >
-          <div class="dash-welcome-content w-full max-w-xl rounded-2xl border border-slate-800 bg-slate-900 p-8 shadow-xl shadow-black/20">
-            <p class="dash-welcome-step mb-4 text-xs font-semibold tracking-[0.22em] text-cyan-400 uppercase">
-              Step 6 / Semantic Class Names
-            </p>
-            <h1 class="dash-welcome-title mb-3 text-6xl font-semibold tracking-tight text-white">
-              Dash
-            </h1>
-            <p class="dash-welcome-status mb-6 text-xl text-slate-200">语义类名规则已建立</p>
-            <p class="dash-welcome-note border-t border-slate-800 pt-5 text-sm leading-6 text-slate-400">
-              dash-* 描述元素职责，Tailwind 工具类描述视觉。下一步将把工作台区域拆分为独立 TSX 组件。
-            </p>
+      <main class="dash-app flex h-screen overflow-hidden bg-slate-950 text-slate-100">
+        <RepositoryNav repositories={repositoryList.repositories} />
+        <section class="dash-workspace-preview flex min-w-0 flex-1 flex-col">
+          <RepositoryTabs tabs={openTabs} />
+          <div class="dash-repository-workspace flex min-h-0 flex-1">
+            <RepositoryExplorer status={workingTreeStatus} refs={repositoryRefs} stashes={stashes} />
+            <section class="dash-history-workspace flex min-w-0 flex-1 flex-col">
+              <RepoToolbar />
+              <HistoryPanel
+                commits={commitHistory.commits}
+                selectedSha={selectedCommit.value.sha}
+                onSelect={handleSelectCommit}
+              />
+              <div class="dash-history-selection grid min-h-[19rem] flex-[0.92] grid-cols-[23rem_minmax(20rem,1fr)] border-t border-[#182b43]">
+                <CommitDetailPanel commit={selectedCommit.value} diff={currentDiff} />
+                <DiffPanel diff={currentDiff} />
+              </div>
+            </section>
           </div>
         </section>
+        <AddRepositoryModal open={false} />
       </main>
     );
   },

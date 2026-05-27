@@ -1,12 +1,24 @@
 {
   "locals": [
     { "name": "main", "sha": "a1b2c3d4e5f67890", "is_head": true },
-    { "name": "feature/rpc-types", "sha": "e5f6a7b8c9d01234", "is_head": false }
+    { "name": "dev", "sha": "54d8ba9871c22341", "is_head": false },
+    { "name": "master", "sha": "e5f6a7b8c9d01234", "is_head": false },
+    { "name": "feature/rpc-types", "sha": "e5f6a7b8c9d01234", "is_head": false },
+    { "name": "release/0.1", "sha": "c2d3e4f5a6b78901", "is_head": false },
+    { "name": "hotfix/typo", "sha": "4bd230198fed7654", "is_head": false }
   ],
   "remotes": [
-    { "name": "origin/main", "sha": "e5f6a7b8c9d01234" }
+    { "name": "origin/main", "sha": "e5f6a7b8c9d01234" },
+    { "name": "origin/dev", "sha": "54d8ba9871c22341" },
+    { "name": "origin/master", "sha": "e5f6a7b8c9d01234" },
+    { "name": "origin/release/0.1", "sha": "c2d3e4f5a6b78901" },
+    { "name": "origin/feature/dto", "sha": "9be345671234abc9" }
   ],
   "tags": [
-    { "name": "v0.1.0", "sha": "82ac21d4" }
+    { "name": "v0.1.0", "sha": "82ac21d4" },
+    { "name": "v0.0.3", "sha": "72bc19d4" },
+    { "name": "v0.0.2", "sha": "62bc19d4" },
+    { "name": "v0.0.1", "sha": "52bc19d4" },
+    { "name": "preview-2026.05", "sha": "c2d3e4f5a6b78901" }
   ]
 }

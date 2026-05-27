@@ -11,3 +11,30 @@ body {
   font-family: Inter, "Segoe UI", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+* {
+  scrollbar-color: #293851 #071023;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #071023;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #293851;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #3b506d;
+}
+
+*::-webkit-scrollbar-corner {
+  background: #071023;
+}

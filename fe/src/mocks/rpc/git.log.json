@@ -6,15 +6,79 @@
       "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
       "authored_at": 1779835200000,
       "summary": "feat: define typed rpc contract",
-      "refs": ["refs/heads/main"]
+      "refs": ["refs/heads/main", "refs/remotes/origin/main"]
     },
     {
       "sha": "e5f6a7b8c9d01234",
-      "parents": [],
+      "parents": ["c2d3e4f5a6b78901"],
       "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
       "authored_at": 1779748800000,
+      "summary": "ui: compose repository workspace panels",
+      "refs": []
+    },
+    {
+      "sha": "c2d3e4f5a6b78901",
+      "parents": ["9345aa67bcde8901"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779662400000,
+      "summary": "release: prepare first interface preview",
+      "refs": ["refs/heads/release/0.1", "refs/remotes/origin/release/0.1", "refs/tags/v0.1.0"]
+    },
+    {
+      "sha": "9345aa67bcde8901",
+      "parents": ["64ac21d4ef345678"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779576000000,
+      "summary": "style: establish dark application surface",
+      "refs": []
+    },
+    {
+      "sha": "64ac21d4ef345678",
+      "parents": ["54d8ba9871c22341"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779532800000,
+      "summary": "fix: align toolbar icon spacing",
+      "refs": []
+    },
+    {
+      "sha": "54d8ba9871c22341",
+      "parents": ["82ac21d4ef345678"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779504000000,
+      "summary": "feat: support nested branch labels",
+      "refs": ["refs/heads/dev", "refs/remotes/origin/dev"]
+    },
+    {
+      "sha": "82ac21d4ef345678",
+      "parents": ["34ac21d4ef345678"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779489600000,
       "summary": "docs: describe dash architecture",
-      "refs": ["refs/remotes/origin/main", "refs/tags/v0.1.0"]
+      "refs": ["refs/tags/preview-2026.05"]
+    },
+    {
+      "sha": "34ac21d4ef345678",
+      "parents": ["24ac21d4ef345678"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779446400000,
+      "summary": "fix: improve selection rendering",
+      "refs": []
+    },
+    {
+      "sha": "24ac21d4ef345678",
+      "parents": ["773bc19ab2345678"],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779406800000,
+      "summary": "style: refine sidebar navigation",
+      "refs": []
+    },
+    {
+      "sha": "773bc19ab2345678",
+      "parents": [],
+      "author": { "name": "Sun Yuhang", "email": "yuhang@example.com" },
+      "authored_at": 1779403200000,
+      "summary": "chore: initialize Dash repository",
+      "refs": []
     }
   ],
   "next_cursor": null

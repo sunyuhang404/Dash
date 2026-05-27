@@ -5,6 +5,18 @@
       "message": "修复登录表单之前的临时改动",
       "created_at": 1779835200000,
       "file_count": 4
+    },
+    {
+      "stash_id": "refs/stash@{1}",
+      "message": "工作区侧栏布局实验",
+      "created_at": 1779748800000,
+      "file_count": 2
+    },
+    {
+      "stash_id": "refs/stash@{2}",
+      "message": "修复时间计算之前的工作",
+      "created_at": 1779662400000,
+      "file_count": 3
     }
   ]
 }
