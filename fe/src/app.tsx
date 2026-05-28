@@ -5,9 +5,11 @@ import 'splitpanes/dist/splitpanes.css';
 import { AddRepositoryModal } from './components/modals/add-repository-modal';
 import { CommitDetailPanel } from './components/workspace/commit-detail-panel';
 import { DiffPanel } from './components/workspace/diff-panel';
+import { FileStatusPanel } from './components/workspace/file-status-panel';
 import { HistoryPanel } from './components/workspace/history-panel';
 import { RepoToolbar } from './components/workspace/repo-toolbar';
 import { RepositoryExplorer } from './components/workspace/repository-explorer';
+import type { RepositoryExplorerView } from './components/workspace/repository-explorer';
 import { RepositoryNav } from './components/workspace/repository-nav';
 import { RepositoryTabs, type RepositoryTabItem } from './components/workspace/repository-tabs';
 import diffMock from './mocks/rpc/git.diff.json';
@@ -42,6 +44,8 @@ export const App = defineComponent({
   name: 'App',
   setup: () => {
     const selectedCommitSha = ref(defaultCommit.sha);
+    const activeExplorerView = ref<RepositoryExplorerView>('status');
+    const selectedStatusFilePath = ref(workingTreeStatus.files[0]?.path ?? currentDiff.file_path);
     const selectedCommit = computed(
       () => commitHistory.commits.find((commit) => commit.sha === selectedCommitSha.value) ?? defaultCommit,
     );
@@ -53,16 +57,33 @@ export const App = defineComponent({
     return () => (
       <main class="dash-app flex h-screen overflow-hidden bg-slate-950 text-slate-100">
         <RepositoryNav repositories={repositoryList.repositories} />
-        <section class="dash-workspace-preview flex min-w-0 flex-1 flex-col">
-          <RepositoryTabs tabs={openTabs} />
-          <div class="dash-repository-workspace flex min-h-0 flex-1">
-            <Splitpanes class="dash-repository-splitpanes min-h-0 flex-1">
-              <Pane size={15} minSize={12} maxSize={28}>
-                <RepositoryExplorer status={workingTreeStatus} refs={repositoryRefs} stashes={stashes} />
-              </Pane>
-              <Pane size={85} minSize={60}>
-                <section class="dash-history-workspace flex h-full min-w-0 flex-col">
-                  <RepoToolbar />
+        <section class="dash-workspace-preview flex min-w-0 flex-1">
+          <Splitpanes class="dash-repository-splitpanes min-h-0 flex-1">
+            <Pane size={15} minSize={14} maxSize={28}>
+              <RepositoryExplorer
+                status={workingTreeStatus}
+                refs={repositoryRefs}
+                stashes={stashes}
+                activeView={activeExplorerView.value}
+                onSelectView={(view) => {
+                  activeExplorerView.value = view;
+                }}
+              />
+            </Pane>
+            <Pane size={85} minSize={60}>
+              <section class="dash-history-workspace flex h-full min-w-0 flex-col">
+                <RepositoryTabs tabs={openTabs} />
+                <RepoToolbar />
+                {activeExplorerView.value === 'status' ? (
+                  <FileStatusPanel
+                    status={workingTreeStatus}
+                    diff={currentDiff}
+                    selectedPath={selectedStatusFilePath.value}
+                    onSelectFile={(path) => {
+                      selectedStatusFilePath.value = path;
+                    }}
+                  />
+                ) : (
                   <Splitpanes class="dash-history-splitpanes min-h-0 flex-1" horizontal>
                     <Pane size={58} minSize={24}>
                       <HistoryPanel
@@ -78,10 +99,10 @@ export const App = defineComponent({
                       </div>
                     </Pane>
                   </Splitpanes>
-                </section>
-              </Pane>
-            </Splitpanes>
-          </div>
+                )}
+              </section>
+            </Pane>
+          </Splitpanes>
         </section>
         <AddRepositoryModal open={false} />
       </main>

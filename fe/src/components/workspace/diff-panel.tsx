@@ -8,6 +8,30 @@ const getLineMarker = (line: DiffLine) => {
   return ' ';
 };
 
+type RenderedDiffLine = {
+  line: DiffLine;
+  oldLineNumber: number | null;
+  newLineNumber: number | null;
+};
+
+const getRenderedDiffLines = (hunk: GitDiffResult['hunks'][number]): RenderedDiffLine[] => {
+  let oldLineNumber = hunk.old_start;
+  let newLineNumber = hunk.new_start;
+
+  return hunk.lines.map((line) => {
+    const renderedLine: RenderedDiffLine = {
+      line,
+      oldLineNumber: line.origin === 'addition' ? null : oldLineNumber,
+      newLineNumber: line.origin === 'deletion' ? null : newLineNumber,
+    };
+
+    if (line.origin !== 'addition') oldLineNumber += 1;
+    if (line.origin !== 'deletion') newLineNumber += 1;
+
+    return renderedLine;
+  });
+};
+
 export const DiffPanel = defineComponent({
   name: 'DiffPanel',
   props: {
@@ -31,10 +55,10 @@ export const DiffPanel = defineComponent({
           {props.diff.hunks.map((hunk) => (
             <article class="dash-diff-hunk mb-3 overflow-hidden border border-[#182b43] bg-[#081427]" key={hunk.hunk_id}>
               <p class="dash-diff-hunk-header bg-[#071224] px-3 py-2 text-cyan-400">{hunk.header}</p>
-              {hunk.lines.map((line, index) => (
+              {getRenderedDiffLines(hunk).map(({ line, oldLineNumber, newLineNumber }, index) => (
                 <p
                   class={[
-                    'dash-diff-line flex px-3 py-1 text-slate-300',
+                    'dash-diff-line grid text-slate-300',
                     {
                       'is-addition bg-emerald-950/50 text-emerald-300': line.origin === 'addition',
                       'is-deletion bg-rose-950/50 text-rose-300': line.origin === 'deletion',
@@ -42,7 +66,9 @@ export const DiffPanel = defineComponent({
                   ]}
                   key={`${hunk.hunk_id}-${index}`}
                 >
-                  <span class="dash-diff-line-marker mr-3 inline-block w-3">{getLineMarker(line)}</span>
+                  <span class="dash-diff-line-number is-old">{oldLineNumber ?? ''}</span>
+                  <span class="dash-diff-line-number is-new">{newLineNumber ?? ''}</span>
+                  <span class="dash-diff-line-marker">{getLineMarker(line)}</span>
                   <span class="dash-diff-line-content whitespace-pre">{line.content}</span>
                 </p>
               ))}

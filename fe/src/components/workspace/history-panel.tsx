@@ -50,12 +50,17 @@ export const HistoryPanel = defineComponent({
                 onClick={() => handleSelect(commit.sha)}
               >
                 <div class="dash-history-graph relative min-h-[2.75rem]">
-                  <span class="dash-history-graph-rail absolute -bottom-px left-3.5 top-0 w-px bg-cyan-700/70" />
-                  {index > 1 && <span class="dash-history-graph-branch absolute -bottom-px left-7 top-0 w-px bg-fuchsia-700/50" />}
+                  <span class="dash-history-graph-rail" />
+                  {index > 1 && (
+                    <>
+                      <span class="dash-history-graph-branch" />
+                      <span class="dash-history-graph-branch-curve" />
+                    </>
+                  )}
                   <span
                     class={[
-                      'dash-history-graph-node absolute left-2.5 top-1/2 size-2.5 -translate-y-1/2 rounded-full border-2',
-                      commit.sha === props.selectedSha ? 'border-cyan-300 bg-cyan-500' : 'border-cyan-600 bg-slate-950',
+                      'dash-history-graph-node',
+                      commit.sha === props.selectedSha ? 'is-selected' : 'is-default',
                     ]}
                   />
                 </div>

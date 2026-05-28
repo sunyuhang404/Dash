@@ -6,14 +6,17 @@ export type DashIconName =
   | 'close'
   | 'commit'
   | 'fetch'
+  | 'file'
   | 'filter'
   | 'folder'
   | 'history'
+  | 'localBranch'
   | 'merge'
   | 'more'
   | 'plus'
   | 'pull'
   | 'push'
+  | 'remoteBranch'
   | 'search'
   | 'settings'
   | 'sidebarCollapse'
@@ -52,6 +55,13 @@ const renderPath = (name: DashIconName) => {
           <path d="M14 2v4h-4" />
         </>
       );
+    case 'file':
+      return (
+        <>
+          <path d="M5 2.75h5.25L13.5 6v9.25H5z" />
+          <path d="M10.25 2.75V6h3.25" />
+        </>
+      );
     case 'filter':
       return (
         <>
@@ -68,6 +78,16 @@ const renderPath = (name: DashIconName) => {
         <>
           <circle cx="9" cy="9" r="6" />
           <path d="M9 5.5V9l2.5 1.5" />
+        </>
+      );
+    case 'localBranch':
+      return (
+        <>
+          <path d="M6 4v8.5a2.5 2.5 0 0 0 2.5 2.5H12" />
+          <path d="M12 4v3.5A2.5 2.5 0 0 1 9.5 10H8" />
+          <circle cx="6" cy="4" r="1.75" />
+          <circle cx="12" cy="4" r="1.75" />
+          <circle cx="12" cy="15" r="1.75" />
         </>
       );
     case 'merge':
@@ -104,6 +124,14 @@ const renderPath = (name: DashIconName) => {
           <path d="M9 15V6" />
           <path d="M5.5 9.5 9 6l3.5 3.5" />
           <path d="M3 3h12" />
+        </>
+      );
+    case 'remoteBranch':
+      return (
+        <>
+          <path d="M5.5 12.75h7.25a2.25 2.25 0 0 0 .4-4.47 3.5 3.5 0 0 0-6.7-1.15A2.9 2.9 0 0 0 5.5 12.75Z" />
+          <path d="M8 10h3" />
+          <path d="M9.5 8.5V12" />
         </>
       );
     case 'search':

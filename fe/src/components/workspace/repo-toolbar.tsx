@@ -6,6 +6,7 @@ interface ToolbarAction {
   label: string;
   tooltip: string;
   icon: DashIconName;
+  tone?: 'primary' | 'default' | 'muted';
   disabled?: boolean;
 }
 
@@ -14,8 +15,8 @@ const toolbarActions: ToolbarAction[] = [
   { label: 'Pull', tooltip: '拉取远程提交并合并到当前分支', icon: 'pull' },
   { label: 'Push', tooltip: '将本地分支推送到选定的远程分支', icon: 'push' },
   { label: 'Merge', tooltip: '将选定分支合并到当前分支', icon: 'merge' },
-  { label: 'Commit', tooltip: '提交已暂存的文件变更', icon: 'commit' },
-  { label: 'Undo', tooltip: '撤销最近一次未推送的提交，并选择改动恢复位置', icon: 'undo', disabled: true },
+  { label: 'Commit', tooltip: '提交已暂存的文件变更', icon: 'commit', tone: 'primary' },
+  { label: 'Undo', tooltip: '撤销最近一次未推送的提交，并选择改动恢复位置', icon: 'undo', tone: 'muted', disabled: true },
   { label: 'Stash', tooltip: '临时保存当前未提交的文件改动', icon: 'stash' },
 ];
 
@@ -27,7 +28,11 @@ export const RepoToolbar = defineComponent({
         <div class="dash-repo-toolbar-actions flex items-center gap-2" aria-label="Git 操作">
           {toolbarActions.map((action) => (
             <button
-              class="dash-repo-toolbar-action flex items-center gap-2 rounded-md border border-[#233751] bg-[#0b192e] px-3 py-2 text-xs text-slate-200 hover:bg-[#12243b] disabled:cursor-not-allowed disabled:text-slate-600"
+              class={[
+                'dash-repo-toolbar-action flex items-center gap-2 rounded-md px-3 py-2 text-xs',
+                action.tone === 'primary' && 'is-primary',
+                action.tone === 'muted' && 'is-muted',
+              ]}
               type="button"
               key={action.label}
               title={action.tooltip}

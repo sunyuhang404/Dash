@@ -44,20 +44,18 @@ export const RepositoryNav = defineComponent({
         <header class={['dash-repo-nav-brand flex h-12 items-center px-4', collapsed.value ? 'justify-center' : 'justify-between']}>
           {!collapsed.value && (
             <div class="dash-repo-nav-brand-title flex items-center gap-2">
+              <span class="dash-repo-nav-brand-mark" aria-hidden="true">
+                <span>D</span>
+              </span>
               <span class="dash-repo-nav-brand-name text-base font-semibold text-slate-100">Dash</span>
               <span class="dash-repo-nav-brand-status size-2 rounded-full border border-slate-400" />
             </div>
           )}
-          <button
-            class="dash-repo-nav-collapse-toggle rounded-md p-1 text-slate-400 transition-colors hover:bg-[#101d32] hover:text-slate-100"
-            type="button"
-            title={collapsed.value ? '展开仓库列表' : '收起仓库列表'}
-            aria-label={collapsed.value ? '展开仓库列表' : '收起仓库列表'}
-            aria-pressed={collapsed.value}
-            onClick={toggleCollapsed}
-          >
-            <DashIcon name={collapsed.value ? 'sidebarExpand' : 'sidebarCollapse'} />
-          </button>
+          {collapsed.value && (
+            <span class="dash-repo-nav-brand-mark" aria-hidden="true">
+              <span>D</span>
+            </span>
+          )}
         </header>
         {!collapsed.value && (
           <label class="dash-repo-nav-search mx-3 mb-3 flex items-center gap-2 rounded-md border border-[#20314b] bg-[#101d33] px-2.5 py-1.5 text-slate-500">
@@ -137,6 +135,16 @@ export const RepositoryNav = defineComponent({
           </button>
           <button class="dash-repo-nav-settings text-slate-400 hover:text-slate-100" type="button" title="设置" aria-label="设置">
             <DashIcon name="settings" />
+          </button>
+          <button
+            class="dash-repo-nav-collapse-toggle text-slate-400 hover:text-slate-100"
+            type="button"
+            title={collapsed.value ? '展开仓库列表' : '收起仓库列表'}
+            aria-label={collapsed.value ? '展开仓库列表' : '收起仓库列表'}
+            aria-pressed={collapsed.value}
+            onClick={toggleCollapsed}
+          >
+            <DashIcon name={collapsed.value ? 'sidebarExpand' : 'sidebarCollapse'} />
           </button>
         </footer>
       </aside>

@@ -4,6 +4,7 @@ import { DashIcon } from '../ui/dash-icon';
 import type { GitRefsResult, GitStashesResult, GitStatusResult } from '../../types/git.types';
 
 type ExplorerGroup = 'locals' | 'remotes' | 'tags' | 'stashes';
+export type RepositoryExplorerView = 'status' | 'history';
 
 const renderChevron = (expanded: boolean) => (
   <svg
@@ -31,8 +32,15 @@ export const RepositoryExplorer = defineComponent({
       type: Object as PropType<GitStashesResult>,
       required: true,
     },
+    activeView: {
+      type: String as PropType<RepositoryExplorerView>,
+      default: 'status',
+    },
   },
-  setup: (props) => {
+  emits: {
+    selectView: (view: RepositoryExplorerView) => view === 'status' || view === 'history',
+  },
+  setup: (props, { emit }) => {
     const expandedGroups = ref<Record<ExplorerGroup, boolean>>({
       locals: true,
       remotes: true,
@@ -48,19 +56,42 @@ export const RepositoryExplorer = defineComponent({
       <aside class="dash-repository-explorer flex h-full min-h-0 w-full shrink-0 flex-col bg-[#101d32]">
         <section class="dash-repository-explorer-views mx-2 flex shrink-0 flex-col gap-[5px] border-b border-[#162941] py-2">
             <button
-              class="dash-repository-explorer-view is-selected flex w-full items-center gap-2 rounded-md bg-[#172b45] px-3 py-1.5 text-sm font-medium text-slate-100"
+              class="dash-repository-explorer-view flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-[#122238] hover:text-slate-100"
               type="button"
             >
               <DashIcon name="workspace" />
               <span class="dash-repository-explorer-view-name">工作区</span>
             </button>
             <button
-              class="dash-repository-explorer-view flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-[#122238] hover:text-slate-100"
+              class={[
+                'dash-repository-explorer-view flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium',
+                props.activeView === 'status' ? 'is-selected text-slate-100' : 'text-slate-400 hover:bg-[#122238] hover:text-slate-100',
+              ]}
               type="button"
-              aria-current="page"
+              aria-current={props.activeView === 'status' ? 'page' : undefined}
+              onClick={() => emit('selectView', 'status')}
+            >
+              <DashIcon name="workspace" />
+              <span class="dash-repository-explorer-view-name">文件状态</span>
+            </button>
+            <button
+              class={[
+                'dash-repository-explorer-view flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm',
+                props.activeView === 'history' ? 'is-selected font-medium text-slate-100' : 'text-slate-400 hover:bg-[#122238] hover:text-slate-100',
+              ]}
+              type="button"
+              aria-current={props.activeView === 'history' ? 'page' : undefined}
+              onClick={() => emit('selectView', 'history')}
             >
               <DashIcon name="history" />
               <span class="dash-repository-explorer-view-name">历史</span>
+            </button>
+            <button
+              class="dash-repository-explorer-view flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-[#122238] hover:text-slate-100"
+              type="button"
+            >
+              <DashIcon name="search" />
+              <span class="dash-repository-explorer-view-name">搜索</span>
             </button>
         </section>
 
@@ -74,7 +105,7 @@ export const RepositoryExplorer = defineComponent({
             >
               <span class="dash-repository-explorer-group-heading flex items-center gap-2">
                 {renderChevron(expandedGroups.value.locals)}
-                <DashIcon name="branch" />
+                <DashIcon name="localBranch" />
                 <span class="dash-repository-explorer-group-name">本地分支</span>
               </span>
               <span class="dash-repository-explorer-group-count text-slate-600">{props.refs.locals.length}</span>
@@ -97,12 +128,7 @@ export const RepositoryExplorer = defineComponent({
                       ]}
                       type="button"
                     >
-                      <span
-                        class={[
-                          'dash-repository-explorer-reference-dot size-1.5 rounded-full',
-                          branch.is_head ? 'bg-cyan-400' : 'border border-slate-500',
-                        ]}
-                      />
+                      <span class="dash-repository-explorer-reference-icon is-local"><DashIcon name="localBranch" /></span>
                       <span class="dash-repository-explorer-reference-name truncate text-xs">{branch.name}</span>
                       {branch.is_head && (
                         <span class="dash-repository-explorer-reference-head ml-auto rounded bg-cyan-950 px-1.5 py-0.5 text-[10px] text-cyan-300">
@@ -125,7 +151,7 @@ export const RepositoryExplorer = defineComponent({
             >
               <span class="dash-repository-explorer-group-heading flex items-center gap-2">
                 {renderChevron(expandedGroups.value.remotes)}
-                <DashIcon name="branch" />
+                <DashIcon name="remoteBranch" />
                 <span class="dash-repository-explorer-group-name">远程分支</span>
               </span>
               <span class="dash-repository-explorer-group-count text-slate-600">{props.refs.remotes.length}</span>
@@ -145,7 +171,7 @@ export const RepositoryExplorer = defineComponent({
                       class="dash-repository-explorer-reference flex w-full items-center gap-2 rounded-md px-3 py-1 text-xs text-slate-400 hover:text-slate-100"
                       type="button"
                     >
-                      <span class="dash-repository-explorer-reference-dot size-1.5 rounded-full bg-indigo-400" />
+                      <span class="dash-repository-explorer-reference-icon is-remote"><DashIcon name="remoteBranch" /></span>
                       <span class="dash-repository-explorer-reference-name truncate">{branch.name}</span>
                     </button>
                   </li>
@@ -183,10 +209,11 @@ export const RepositoryExplorer = defineComponent({
                       class="dash-repository-explorer-reference flex w-full items-center gap-2 rounded-md px-3 py-1 text-xs text-slate-400 hover:text-slate-100"
                       type="button"
                     >
-                      <span class="dash-repository-explorer-tag-mark rounded-sm border border-amber-500/70 px-1 text-[10px] text-amber-400">
+                      <span class="dash-repository-explorer-reference-icon is-tag"><DashIcon name="tag" /></span>
+                      <span class="dash-repository-explorer-reference-name truncate">{tag.name}</span>
+                      <span class="dash-repository-explorer-tag-mark ml-auto rounded-sm border border-amber-500/50 px-1 text-[10px] text-amber-400">
                         tag
                       </span>
-                      <span class="dash-repository-explorer-reference-name truncate">{tag.name}</span>
                     </button>
                   </li>
                 ))}

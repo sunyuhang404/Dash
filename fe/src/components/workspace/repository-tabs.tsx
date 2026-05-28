@@ -20,12 +20,12 @@ export const RepositoryTabs = defineComponent({
   },
   setup: (props) => {
     return () => (
-      <header class="dash-repository-tabs flex h-11 shrink-0 items-end border-b border-[#172a42] bg-[#071224] px-2">
+      <header class="dash-repository-tabs flex h-11 shrink-0 items-end border-b border-[#172a42] bg-[#071224] px-2 pl-3">
         <div class="dash-repository-tab-list flex h-full items-end gap-1" role="tablist" aria-label="打开的仓库">
           {props.tabs.map((tab) => (
             <div
               class={[
-                'dash-repository-tab flex h-10 items-center gap-2 rounded-t-lg border border-b-0 px-3 text-sm',
+                'dash-repository-tab flex h-9 items-center gap-2 rounded-t-md border border-b-0 px-3 text-sm',
                 tab.active
                   ? 'is-active border-[#233852] bg-[#101d32] text-white'
                   : 'border-transparent text-slate-400',
@@ -50,7 +50,7 @@ export const RepositoryTabs = defineComponent({
             </div>
           ))}
           <button
-            class="dash-repository-tab-add flex h-10 w-10 items-center justify-center rounded-t-lg border border-b-0 border-[#1b2d46] text-slate-500 hover:bg-[#101d32] hover:text-slate-200"
+            class="dash-repository-tab-add flex h-9 w-10 items-center justify-center rounded-t-md border border-b-0 border-[#1b2d46] text-slate-500 hover:bg-[#101d32] hover:text-slate-200"
             type="button"
             title="打开仓库页签"
             aria-label="打开仓库页签"
