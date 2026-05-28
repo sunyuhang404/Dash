@@ -38,3 +38,111 @@ body {
 *::-webkit-scrollbar-corner {
   background: #071023;
 }
+
+.dash-history-splitpanes.splitpanes {
+  background: #071224;
+}
+
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter {
+  position: relative;
+  z-index: 2;
+  min-height: 6px;
+  border-top: 1px solid #182b43;
+  border-bottom: 1px solid #101f35;
+  background: #071224;
+  cursor: row-resize;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 2px;
+  border-radius: 999px;
+  background: #293851;
+  content: "";
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 0.16s ease,
+    width 0.16s ease;
+}
+
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter:hover,
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter:focus-visible,
+.dash-history-splitpanes.splitpanes--horizontal.splitpanes--dragging > .splitpanes__splitter {
+  border-color: #1f4d68;
+  background: #0a1b30;
+}
+
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter:hover::before,
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter:focus-visible::before,
+.dash-history-splitpanes.splitpanes--horizontal.splitpanes--dragging > .splitpanes__splitter::before {
+  width: 48px;
+  background: #22d3ee;
+}
+
+.dash-history-splitpanes.splitpanes--horizontal > .splitpanes__splitter:focus-visible {
+  outline: 1px solid #22d3ee;
+  outline-offset: -1px;
+}
+
+.dash-repository-splitpanes.splitpanes {
+  background: #071224;
+}
+
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter {
+  position: relative;
+  z-index: 2;
+  min-width: 6px;
+  border-left: 1px solid #182b43;
+  border-right: 1px solid #101f35;
+  background: #071224;
+  cursor: col-resize;
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 36px;
+  border-radius: 999px;
+  background: #293851;
+  content: "";
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 0.16s ease,
+    height 0.16s ease;
+}
+
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter:hover,
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter:focus-visible,
+.dash-repository-splitpanes.splitpanes--vertical.splitpanes--dragging > .splitpanes__splitter {
+  border-color: #1f4d68;
+  background: #0a1b30;
+}
+
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter:hover::before,
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter:focus-visible::before,
+.dash-repository-splitpanes.splitpanes--vertical.splitpanes--dragging > .splitpanes__splitter::before {
+  height: 48px;
+  background: #22d3ee;
+}
+
+.dash-repository-splitpanes.splitpanes--vertical > .splitpanes__splitter:focus-visible {
+  outline: 1px solid #22d3ee;
+  outline-offset: -1px;
+}
+
+.dash-repository-nav.is-collapsed .dash-repo-nav-item:hover .dash-repo-nav-tooltip,
+.dash-repository-nav.is-collapsed .dash-repo-nav-item:focus .dash-repo-nav-tooltip,
+.dash-repository-nav.is-collapsed .dash-repo-nav-item:focus-visible .dash-repo-nav-tooltip {
+  opacity: 1;
+}

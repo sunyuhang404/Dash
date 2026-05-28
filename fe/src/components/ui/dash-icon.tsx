@@ -16,6 +16,8 @@ export type DashIconName =
   | 'push'
   | 'search'
   | 'settings'
+  | 'sidebarCollapse'
+  | 'sidebarExpand'
   | 'stash'
   | 'status'
   | 'tag'
@@ -116,6 +118,22 @@ const renderPath = (name: DashIconName) => {
         <>
           <circle cx="9" cy="9" r="2.5" />
           <path d="M9 2.5v2m0 9v2M15.5 9h-2m-9 0h-2M13.6 4.4 12.2 5.8m-6.4 6.4-1.4 1.4m9.2 0-1.4-1.4M5.8 5.8 4.4 4.4" />
+        </>
+      );
+    case 'sidebarCollapse':
+      return (
+        <>
+          <rect x="2.5" y="3" width="13" height="12" rx="2" />
+          <path d="M6.5 3v12" />
+          <path d="m12 6-3 3 3 3" />
+        </>
+      );
+    case 'sidebarExpand':
+      return (
+        <>
+          <rect x="2.5" y="3" width="13" height="12" rx="2" />
+          <path d="M6.5 3v12" />
+          <path d="m9.5 6 3 3-3 3" />
         </>
       );
     case 'stash':

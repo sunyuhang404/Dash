@@ -31,7 +31,7 @@ export const HistoryPanel = defineComponent({
     };
 
     return () => (
-      <section class="dash-history-panel flex min-h-0 flex-col border-b border-[#192b43] bg-[#081427]">
+      <section class="dash-history-panel flex h-full min-h-0 flex-col border-b border-[#192b43] bg-[#081427]">
         <div class="dash-history-table-header grid grid-cols-[4.25rem_minmax(18rem,1fr)_10rem_9rem] border-b border-[#182b43] px-4 py-2 text-[11px] text-slate-500">
           <span class="dash-history-column-graph">图谱</span>
           <span class="dash-history-column-summary">描述</span>

@@ -45,7 +45,7 @@ export const RepositoryExplorer = defineComponent({
     };
 
     return () => (
-      <aside class="dash-repository-explorer flex min-h-0 w-44 shrink-0 flex-col border-r border-[#182a42] bg-[#101d32]">
+      <aside class="dash-repository-explorer flex h-full min-h-0 w-full shrink-0 flex-col bg-[#101d32]">
         <section class="dash-repository-explorer-views mx-2 flex shrink-0 flex-col gap-[5px] border-b border-[#162941] py-2">
             <button
               class="dash-repository-explorer-view is-selected flex w-full items-center gap-2 rounded-md bg-[#172b45] px-3 py-1.5 text-sm font-medium text-slate-100"

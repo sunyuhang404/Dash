@@ -1,4 +1,6 @@
 import { computed, defineComponent, ref } from 'vue';
+import { Pane, Splitpanes } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
 
 import { AddRepositoryModal } from './components/modals/add-repository-modal';
 import { CommitDetailPanel } from './components/workspace/commit-detail-panel';
@@ -54,19 +56,31 @@ export const App = defineComponent({
         <section class="dash-workspace-preview flex min-w-0 flex-1 flex-col">
           <RepositoryTabs tabs={openTabs} />
           <div class="dash-repository-workspace flex min-h-0 flex-1">
-            <RepositoryExplorer status={workingTreeStatus} refs={repositoryRefs} stashes={stashes} />
-            <section class="dash-history-workspace flex min-w-0 flex-1 flex-col">
-              <RepoToolbar />
-              <HistoryPanel
-                commits={commitHistory.commits}
-                selectedSha={selectedCommit.value.sha}
-                onSelect={handleSelectCommit}
-              />
-              <div class="dash-history-selection grid min-h-[19rem] flex-[0.92] grid-cols-[23rem_minmax(20rem,1fr)] border-t border-[#182b43]">
-                <CommitDetailPanel commit={selectedCommit.value} diff={currentDiff} />
-                <DiffPanel diff={currentDiff} />
-              </div>
-            </section>
+            <Splitpanes class="dash-repository-splitpanes min-h-0 flex-1">
+              <Pane size={15} minSize={12} maxSize={28}>
+                <RepositoryExplorer status={workingTreeStatus} refs={repositoryRefs} stashes={stashes} />
+              </Pane>
+              <Pane size={85} minSize={60}>
+                <section class="dash-history-workspace flex h-full min-w-0 flex-col">
+                  <RepoToolbar />
+                  <Splitpanes class="dash-history-splitpanes min-h-0 flex-1" horizontal>
+                    <Pane size={58} minSize={24}>
+                      <HistoryPanel
+                        commits={commitHistory.commits}
+                        selectedSha={selectedCommit.value.sha}
+                        onSelect={handleSelectCommit}
+                      />
+                    </Pane>
+                    <Pane size={42} minSize={28}>
+                      <div class="dash-history-selection grid h-full min-h-0 grid-cols-[23rem_minmax(20rem,1fr)] border-t border-[#182b43]">
+                        <CommitDetailPanel commit={selectedCommit.value} diff={currentDiff} />
+                        <DiffPanel diff={currentDiff} />
+                      </div>
+                    </Pane>
+                  </Splitpanes>
+                </section>
+              </Pane>
+            </Splitpanes>
           </div>
         </section>
         <AddRepositoryModal open={false} />
