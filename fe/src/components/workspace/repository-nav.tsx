@@ -13,8 +13,16 @@ export const RepositoryNav = defineComponent({
       type: Array as PropType<RepositoryRecord[]>,
       default: () => [],
     },
+    activeRepositoryKey: {
+      type: String,
+      default: '',
+    },
   },
-  setup: (props) => {
+  emits: {
+    addRepository: () => true,
+    selectRepository: (repositoryKey: string) => Boolean(repositoryKey),
+  },
+  setup: (props, { emit }) => {
     const collapsed = ref(false);
     const hoveredRepositoryKey = ref<string | null>(null);
 
@@ -68,18 +76,19 @@ export const RepositoryNav = defineComponent({
           </label>
         )}
         <nav class={['dash-repo-nav-list flex-1 space-y-2 px-2', collapsed.value ? 'overflow-visible' : '']} aria-label="已添加仓库">
-          {props.repositories.map((repository, index) => (
+          {props.repositories.map((repository) => (
             <button
               class={[
                 'dash-repo-nav-item relative flex w-full rounded-lg text-left transition-colors',
                 collapsed.value
                   ? 'group items-center justify-center px-0 py-2'
                   : 'items-start gap-3 px-2.5 py-2.5',
-                index === 0 ? 'is-active bg-[#12233a]' : 'hover:bg-[#0e1b30]',
+                repository.repository_key === props.activeRepositoryKey ? 'is-active bg-[#12233a]' : 'hover:bg-[#0e1b30]',
               ]}
               type="button"
               key={repository.repository_key}
               title={repository.display_name}
+              onClick={() => emit('selectRepository', repository.repository_key)}
               onMouseover={() => showRepositoryTooltip(repository.repository_key)}
               onMouseout={hideRepositoryTooltip}
               onFocusin={() => showRepositoryTooltip(repository.repository_key)}
@@ -109,7 +118,7 @@ export const RepositoryNav = defineComponent({
                   <span class="dash-repo-nav-current-branch mt-1 text-[10px] text-cyan-400">main</span>
                 </>
               )}
-              {collapsed.value && index === 0 && (
+              {collapsed.value && repository.repository_key === props.activeRepositoryKey && (
                 <span class="dash-repo-nav-collapsed-current absolute right-2 top-2 size-1.5 rounded-full bg-cyan-400" />
               )}
             </button>
@@ -129,6 +138,7 @@ export const RepositoryNav = defineComponent({
             type="button"
             title="添加仓库"
             aria-label="添加仓库"
+            onClick={() => emit('addRepository')}
           >
             <DashIcon name="plus" />
             {!collapsed.value && '添加仓库'}

@@ -1440,6 +1440,79 @@ body {
   outline-offset: -1px;
 }
 
+.dash-add-repository-backdrop {
+  z-index: 1000;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(34, 211, 238, 0.11), transparent 34rem),
+    rgba(1, 7, 17, 0.74);
+  backdrop-filter: blur(10px);
+}
+
+.dash-add-repository-modal {
+  border-color: rgba(50, 80, 116, 0.86);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 42%),
+    #101d32;
+  box-shadow:
+    0 30px 86px rgba(0, 0, 0, 0.48),
+    0 0 0 1px rgba(34, 211, 238, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.dash-add-repository-close,
+.dash-add-repository-cancel,
+.dash-add-repository-submit {
+  transition:
+    border-color 0.16s ease,
+    background-color 0.16s ease,
+    color 0.16s ease,
+    opacity 0.16s ease,
+    transform 0.16s ease;
+}
+
+.dash-add-repository-close:hover,
+.dash-add-repository-cancel:hover,
+.dash-add-repository-submit:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.dash-add-repository-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.dash-modal-fade-enter-active,
+.dash-modal-fade-leave-active {
+  transition:
+    opacity 0.22s ease,
+    backdrop-filter 0.22s ease;
+}
+
+.dash-modal-fade-enter-active .dash-add-repository-modal,
+.dash-modal-fade-leave-active .dash-add-repository-modal {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dash-modal-fade-enter-from,
+.dash-modal-fade-leave-to {
+  opacity: 0;
+  backdrop-filter: blur(0);
+}
+
+.dash-modal-fade-enter-from .dash-add-repository-modal,
+.dash-modal-fade-leave-to .dash-add-repository-modal {
+  opacity: 0;
+  transform: translateY(0.75rem) scale(0.985);
+}
+
+.dash-modal-fade-enter-to .dash-add-repository-modal,
+.dash-modal-fade-leave-from .dash-add-repository-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .dash-repository-nav.is-collapsed .dash-repo-nav-item:hover .dash-repo-nav-tooltip,
 .dash-repository-nav.is-collapsed .dash-repo-nav-item:focus .dash-repo-nav-tooltip,
 .dash-repository-nav.is-collapsed .dash-repo-nav-item:focus-visible .dash-repo-nav-tooltip {

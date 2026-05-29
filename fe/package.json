@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "pinia": "^3.0.4",
     "splitpanes": "^4.1.2",
     "vue": "^3.5.34"
   },

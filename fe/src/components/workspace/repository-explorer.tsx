@@ -2,9 +2,9 @@ import { defineComponent, ref, type PropType } from 'vue';
 
 import { DashIcon } from '../ui/dash-icon';
 import type { GitRefsResult, GitStashesResult, GitStatusResult } from '../../types/git.types';
+import type { RepositoryWorkspaceView } from '../../stores/workspace.store';
 
 type ExplorerGroup = 'locals' | 'remotes' | 'tags' | 'stashes';
-export type RepositoryExplorerView = 'status' | 'history';
 
 const renderChevron = (expanded: boolean) => (
   <svg
@@ -33,12 +33,12 @@ export const RepositoryExplorer = defineComponent({
       required: true,
     },
     activeView: {
-      type: String as PropType<RepositoryExplorerView>,
+      type: String as PropType<RepositoryWorkspaceView>,
       default: 'status',
     },
   },
   emits: {
-    selectView: (view: RepositoryExplorerView) => view === 'status' || view === 'history',
+    selectView: (view: RepositoryWorkspaceView) => view === 'status' || view === 'history',
   },
   setup: (props, { emit }) => {
     const expandedGroups = ref<Record<ExplorerGroup, boolean>>({
